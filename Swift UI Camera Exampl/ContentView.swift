@@ -79,6 +79,36 @@ struct ContentView: View {
                             
                         }
                     }
+                    Button("Bloom"){
+                        if let inputImage = selectedImage{
+                            let beginImage = CIImage(image: inputImage)
+                            let currentFilter = CIFilter.bloom()
+                            currentFilter.inputImage = beginImage
+
+                            
+                            guard let outputImage = currentFilter.outputImage else{return}
+                            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
+                                let uiImage = UIImage(cgImage: cgImage)
+                                self.selectedImage = uiImage
+                            }
+                            
+                        }
+                    }
+                    Button("gaussian Blur"){
+                        if let inputImage = selectedImage{
+                            let beginImage = CIImage(image: inputImage)
+                            let currentFilter = CIFilter.gaussianBlur()
+                            currentFilter.inputImage = beginImage
+
+                            
+                            guard let outputImage = currentFilter.outputImage else{return}
+                            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent){
+                                let uiImage = UIImage(cgImage: cgImage)
+                                self.selectedImage = uiImage
+                            }
+                            
+                        }
+                    }
                 }
                 
             }.sheet(isPresented: self.$displayPickerView){
